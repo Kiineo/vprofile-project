@@ -2,6 +2,10 @@
 
 This README provides an overview of the Docker project and its components. The project's primary objective is to establish a Docker-based infrastructure for hosting various services, including a web application, a MySQL database, Memcached, and RabbitMQ. These Docker containers can be used in conjunction with other projects, such as Kubernetes.
 
+## Project Overview
+
+![DOCKEREXAMPLE](https://github.com/Kiineo/vprofile-project/assets/103956412/48196178-011a-477f-8754-9cf22be63495)
+
 ## Project Components
 
 ### EC2 Instance
