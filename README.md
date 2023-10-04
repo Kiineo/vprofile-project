@@ -1,58 +1,74 @@
-# Docker Project README
+# Dockerized Project README
 
-This README provides an overview of the Docker project and its components. The project's primary objective is to establish a Docker-based infrastructure for hosting various services, including a web application, a MySQL database, Memcached, and RabbitMQ. These Docker containers can be used in conjunction with other projects, such as Kubernetes.
+This README provides an overview of a Dockerized project with multiple components, including Apache Tomcat, NGINX, and MySQL. The project involves building, testing, and storing Docker images on Docker Hub.
 
-## Project Overview
+## Source (Docker File)
 
-![DOCKEREXAMPLE](https://github.com/Kiineo/vprofile-project/assets/103956412/48196178-011a-477f-8754-9cf22be63495)
+The Dockerfile defines how the application and services are packaged into Docker images.
 
-## Project Components
+### Apache Tomcat
 
-### EC2 Instance
-- An EC2 instance is established to host Docker-Engine, serving as the foundation for the entire project.
+- The application is built from an OpenJDK 11 base image.
+- Maven is installed, and the project code is cloned and built.
 
-### Docker Compose Files
-- Docker Compose files have been authored to optimize the orchestration of containers, ensuring reliable service delivery and scalability. The following services are defined:
-  - MySQL (vprodb)
-  - Memcached (vprocache01)
-  - RabbitMQ (vpromq01)
-  - Web Application (vproapp)
-  - Nginx (vproweb)
+```dockerfile
+FROM openjdk:11 AS BUILD_IMAGE
+RUN apt update && apt install maven -y
+RUN git clone https://github.com/Kiineo/vprofile-project.git
+RUN cd vprofile-project && git checkout docker && mvn install
+```
+### NGINX
 
-### Web Application
-- The web application is built using OpenJDK 11 and Maven.
-- A Docker image is created from the application code and deployed on Tomcat 9.
-- The application listens on port 8080.
+The NGINX web server configuration is set up for the application.
+Default NGINX configuration is removed, and a custom configuration is copied.
 
-### Database (MySQL)
-- MySQL 8.0.33 is used as the database management system.
-- An environment variable is set for the root password (`MYSQL_ROOT_PASSWORD`) and database name (`MYSQL_DATABASE`).
-- A SQL backup script (`db_backup.sql`) is added for initialization.
+```
+FROM nginx
+RUN rm -rf /etc/nginx/conf.d/default.conf
+COPY nginvproapp.conf /etc/nginx/conf.d/vproapp.conf
+```
+### MySQL
+MySQL is configured with specific settings and a database is initialized with provided SQL script.
+```
+FROM mysql:8.0.33
+ENV MYSQL_ROOT_PASSWORD="vprodbpass"
+ENV MYSQL_DATABASE="accounts"
+ADD db_backup.sql docker-entrypoint-initdb.d/db_backup.sql
+```
 
-### Cache (Memcached)
-- Memcached is used for caching purposes.
-- It listens on port 11211.
+### Build (Docker Build)
+Images for Apache Tomcat, NGINX, and MySQL are built using Docker.
 
-### Message Queue (RabbitMQ)
-- RabbitMQ is used as a message broker.
-- It provides management UI on port 15672.
-- Default credentials are configured (`RABBITMQ_DEFAULT_USER` and `RABBITMQ_DEFAULT_PASS`).
+### Test (Docker Compose)
+Docker Compose is used to orchestrate the different components and services for testing and development.
+```
+version: "3.8"
 
-### Nginx (Web Server)
-- Nginx is employed as the web server.
-- A custom configuration file (`vproapp.conf`) is used.
-- The Nginx container listens on port 80.
+services:
+  vprodb:
+    # ... MySQL service configuration ...
 
-## Docker Compose
-- Docker Compose is employed to manage and orchestrate the Docker containers.
-- All services are defined in the `docker-compose.yml` file.
+  vprocache01:
+    # ... Memcached service configuration ...
 
-## Building and Running the Project
-1. Ensure Docker is installed on your host system.
-2. Clone this repository.
-3. Navigate to the project directory.
-4. Use the following commands to build and run the project:
+  vpromq01:
+    # ... RabbitMQ service configuration ...
 
-```bash
-docker-compose build
-docker-compose up -d
+  vproapp:
+    # ... Application service configuration ...
+
+  vproweb:
+    # ... Web service configuration ...
+
+volumes:
+  vprodbdata: {}
+  vproappdata: {}
+```
+### Store (Docker Hub)
+Docker images are stored and versioned on Docker Hub for easy access and distribution.
+
+### Image Names and Tags
+Apache Tomcat: kiineo/vprofileapp
+MySQL: kiineo/vprofiledb
+NGINX: kiineo/vprofileweb
+Images can be pulled from Docker Hub as needed.
