@@ -9,7 +9,7 @@ This README provides an overview of a Dockerized project with multiple component
 ## Docker Server Setup (EC2 Instance)
 
 ### Creation of the Docker Engine EC2 Instance:
-- This instance is provisioned and managed to host the Jenkins Server.
+- This instance is provisioned and managed to host the Docker Engine.
 
 
 ## Source (Docker File)
