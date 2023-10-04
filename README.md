@@ -19,8 +19,8 @@ RUN cd vprofile-project && git checkout docker && mvn install
 ```
 ### NGINX
 
-The NGINX web server configuration is set up for the application.
-Default NGINX configuration is removed, and a custom configuration is copied.
+- The NGINX web server configuration is set up for the application.
+- Default NGINX configuration is removed, and a custom configuration is copied.
 
 ```
 FROM nginx
@@ -28,7 +28,8 @@ RUN rm -rf /etc/nginx/conf.d/default.conf
 COPY nginvproapp.conf /etc/nginx/conf.d/vproapp.conf
 ```
 ### MySQL
-MySQL is configured with specific settings and a database is initialized with provided SQL script.
+- MySQL is configured with specific settings and a database is initialized with provided SQL script.
+
 ```
 FROM mysql:8.0.33
 ENV MYSQL_ROOT_PASSWORD="vprodbpass"
@@ -37,10 +38,11 @@ ADD db_backup.sql docker-entrypoint-initdb.d/db_backup.sql
 ```
 
 ### Build (Docker Build)
-Images for Apache Tomcat, NGINX, and MySQL are built using Docker.
+- Images for Apache Tomcat, NGINX, and MySQL are built using Docker.
 
 ### Test (Docker Compose)
-Docker Compose is used to orchestrate the different components and services for testing and development.
+- Docker Compose is used to orchestrate the different components and services for testing and development.
+  
 ```
 version: "3.8"
 
@@ -65,10 +67,10 @@ volumes:
   vproappdata: {}
 ```
 ### Store (Docker Hub)
-Docker images are stored and versioned on Docker Hub for easy access and distribution.
+- Docker images are stored and versioned on Docker Hub for easy access and distribution.
 
 ### Image Names and Tags
-Apache Tomcat: kiineo/vprofileapp
-MySQL: kiineo/vprofiledb
-NGINX: kiineo/vprofileweb
+- Apache Tomcat: kiineo/vprofileapp
+- MySQL: kiineo/vprofiledb
+- NGINX: kiineo/vprofileweb
 Images can be pulled from Docker Hub as needed.
