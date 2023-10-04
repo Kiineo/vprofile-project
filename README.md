@@ -73,4 +73,4 @@ volumes:
 - Apache Tomcat: kiineo/vprofileapp
 - MySQL: kiineo/vprofiledb
 - NGINX: kiineo/vprofileweb
-Images can be pulled from Docker Hub as needed.
+- Images can be pulled from Docker Hub as needed.
