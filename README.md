@@ -4,9 +4,9 @@ This README provides an overview of a Dockerized project with multiple component
 
 ## Jenkins Server Setup (EC2 Instance)
 
-**Creation of the Jenkins EC2 Instance:**
-   - The Jenkins CI/CD pipeline runs on an EC2 instance.
-   - This instance is provisioned and managed to host the Jenkins Server.
+### Creation of the Jenkins EC2 Instance:
+- The Jenkins CI/CD pipeline runs on an EC2 instance.
+- This instance is provisioned and managed to host the Jenkins Server.
 
 
 ## Source (Docker File)
@@ -44,10 +44,10 @@ ENV MYSQL_DATABASE="accounts"
 ADD db_backup.sql docker-entrypoint-initdb.d/db_backup.sql
 ```
 
-### Build (Docker Build)
+## Build (Docker Build)
 - Images for Apache Tomcat, NGINX, and MySQL are built using Docker.
 
-### Test (Docker Compose)
+## Test (Docker Compose)
 - Docker Compose is used to orchestrate the different components and services for testing and development.
   
 ```
@@ -73,7 +73,7 @@ volumes:
   vprodbdata: {}
   vproappdata: {}
 ```
-### Store (Docker Hub)
+## Store (Docker Hub)
 - Docker images are stored and versioned on Docker Hub for easy access and distribution.
 
 ### Image Names and Tags
