@@ -1,11 +1,14 @@
-# Dockerized Project README
+# Docker Project README
 
 This README provides an overview of a Dockerized project with multiple components, including Apache Tomcat, NGINX, and MySQL. The project involves building, testing, and storing Docker images on Docker Hub.
 
-## Jenkins Server Setup (EC2 Instance)
+## Docker Project Overview
 
-### Creation of the Jenkins EC2 Instance:
-- The Jenkins CI/CD pipeline runs on an EC2 instance.
+![DOCKEREXAMPLE](https://github.com/Kiineo/vprofile-project/assets/103956412/6400ad58-67bb-4df3-ae3b-21f8c69745d5)
+
+## Docker Server Setup (EC2 Instance)
+
+### Creation of the Docker Engine EC2 Instance:
 - This instance is provisioned and managed to host the Jenkins Server.
 
 
